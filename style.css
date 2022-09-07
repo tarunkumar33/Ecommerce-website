@@ -1,0 +1,205 @@
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+nav{
+    height: 6vh;
+    background-color: black;
+    position: sticky;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top:0%;
+    border-bottom: 2px solid white;
+}
+nav ul{
+    display: flex;   
+}
+li{
+    list-style: none;
+    margin:0px 40px;
+}
+a{
+    text-decoration: none;
+    color: white;
+}
+header{
+    display:flex;
+    flex-direction: column;
+    background-color: grey;
+}
+header h1{
+    color: white;
+    font-size:100px;
+    text-align: center;
+    margin:10px auto;
+    margin-bottom: 100px;
+        /* border: 1px solid blue; */
+
+
+}
+header .latest-album{
+    border:1px solid #56CCF2;
+    padding:15px 30px;
+    font-size:23px;
+    font-weight: 200;
+    margin:10px auto;
+    background: inherit;
+    cursor: pointer;
+    color:white;
+    
+}
+header .play-btn{
+    cursor: pointer;
+    border:2px solid #56CCF2;
+    border-radius:50%;
+    padding:20px;
+    font-size:30px;
+    font-weight: 200;
+    margin:20px auto;
+    background: inherit;
+    color:#56CCF2;
+}
+
+#tours .tour-item{
+    display:flex;
+    border-bottom:1px solid black;
+    padding:10px;
+}
+#tours .tour-item .tour-date{
+    width:10%;
+    /* border: 1px solid blue; */
+}
+#tours .tour-item .tour-place{
+    width:20%;
+    color:#777;
+    /* border: 1px solid blue; */
+
+}
+#tours .tour-item .tour-spec-place{
+    width:50%;
+    color:#777;
+    /* border: 1px solid blue; */
+
+}
+
+#tours .tour-item .buy-btn{
+    width:20%;
+    background: #56CCF2;
+    color:white;
+    border:none;
+    padding:7px;
+    border-radius:5px;
+    font-weight:700;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#tours{
+    max-width:900px;
+    margin:0 auto;
+    padding:20px 30px;
+}
+
+footer{
+    padding: 3vh;
+    margin-top:50px;
+    background: #56CCF2;
+    text-align: center;
+    font-weight: 900;
+    font-size:30px;
+    color: white;
+
+}
+
+section h2{
+    font-family:"Metal Mania";
+    text-align:center;
+    padding:20px;
+    font-size:30px;
+}
+.container{
+    max-width:900px;
+    margin:0 auto;
+    padding:20px 30px;
+}
+
+.content{
+    display:flex;
+    flex-wrap: wrap;
+    justify-content:space-around;
+}
+.content div{
+    margin:30px;
+}
+.content div h3{
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 15px;
+}
+.content .prod-details{
+    display: flex;
+    margin: 8px;
+    align-items: center;
+    justify-content: space-between;
+}
+.content .shop-item-button{
+    cursor:pointer;
+    padding:8px;
+    color:white;
+    border:none;
+    font-size:15px;
+    font-weight: bold;
+    border-radius: 4%;
+    background: #56CCF2;
+}
+.cart-btn-bottom {
+    display: flex;
+    padding: 15px;
+    background-color: #777;
+    border: none;
+    border-radius: 7px;
+    margin: auto;
+    cursor: pointer;
+}
+.cart-bottom {
+    text-decoration: none;
+    color: #56CCF2;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+/* About */
+#about{
+    max-width:900px;
+    margin:0 auto;
+    font-size: 22px;
+}
+#about h3{
+    text-align: center;
+    font-size:25px;
+    margin:20px;
+}
+
+#about img{
+    float:left;
+    margin:20px 50px;
+    border-radius: 50%;
+    width:200px;
+    height:200px;
+}
+
+
+#about p{
+    
+    font-size:17px;
+    margin:20px;
+    color:#777;
+    /* border: 2px solid blueviolet; */
+}
+
