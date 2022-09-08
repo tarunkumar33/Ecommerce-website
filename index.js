@@ -1,7 +1,35 @@
 const cart_items = document.querySelector('#cart .cart-items');
 const ecommContainer=document.getElementById('EcommerceContainer');
+//axios
+const axiosObj=axios.create({
+    baseURL:'http://localhost:3000'
+});
 
+window.addEventListener('DOMContentLoaded',fetchProductsHandler);
 ecommContainer.addEventListener('click',ecommContainerHandler);
+
+function fetchProductsHandler(){
+    axiosObj.get('/product')
+    .then(res=>{
+        const productsUI=document.getElementById('music-content');
+        let childUI='';
+        res.data.forEach((item)=>{
+            childUI+=`<div id='${item.productName}'>
+                    <h3>${item.productName}</h3>
+                    <div class="image-container">
+                        <img class="prod-images" src="${item.imageUrl}" alt="">
+                    </div>
+                    <div class="prod-details">
+                        <span>$<span>${item.price}</span></span>
+                        <button class="shop-item-button" type='button'>ADD TO CART</button>
+                    </div>
+                </div>`;
+        })
+        productsUI.innerHTML=childUI;
+
+    })
+    .catch(err=>console.log(err));
+}
 
 function ecommContainerHandler(e){
     //if add to cart btn clicked

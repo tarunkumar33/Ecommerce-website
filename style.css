@@ -219,7 +219,7 @@ section h2{
 /* hamburger cart */
 #cart{
     margin:0px;
-    /* display: none; */
+    display: none;
     position:fixed;
     top:50px;
     height: 100vh;
