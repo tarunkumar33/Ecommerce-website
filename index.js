@@ -6,6 +6,7 @@ const axiosObj=axios.create({
 });
 
 window.addEventListener('DOMContentLoaded',fetchProductsHandler);
+window.addEventListener('DOMContentLoaded',fetchCartProductsHandler);
 ecommContainer.addEventListener('click',ecommContainerHandler);
 
 function fetchProductsHandler(){
@@ -14,7 +15,7 @@ function fetchProductsHandler(){
         const productsUI=document.getElementById('music-content');
         let childUI='';
         res.data.forEach((item)=>{
-            childUI+=`<div id='${item.productName}'>
+            childUI+=`<div id='product-${item.id}'>
                     <h3>${item.productName}</h3>
                     <div class="image-container">
                         <img class="prod-images" src="${item.imageUrl}" alt="">
@@ -31,6 +32,38 @@ function fetchProductsHandler(){
     .catch(err=>console.log(err));
 }
 
+function fetchCartProductsHandler(){
+    axiosObj.get('/cart')
+    .then(res=>{
+        // navbar cart count increase
+        document.querySelector('.cart-number').innerText = res.data.length;
+        let total_cart_price = document.querySelector('#total-value').innerText;
+        res.data.forEach((item)=>{
+            //adding product to cart and updating the total price
+            const cart_item = document.createElement('div');
+            cart_item.classList.add('cart-row');
+            cart_item.setAttribute('id',`in-cart-${item.id}`);
+            total_cart_price = parseFloat(total_cart_price) + parseFloat(item.price)
+            total_cart_price = total_cart_price.toFixed(2)
+            document.querySelector('#total-value').innerText = `${total_cart_price}`;
+            cart_item.innerHTML = `
+            <span class='cart-item cart-column'>
+                <img class='cart-img' src="${item.imageUrl}" alt="">
+                <span>${item.productName}</span>
+            </span>
+            <span class='cart-price cart-column'>${item.price}</span>
+            <span class='cart-quantity cart-column'>
+                <input type="text" value="${item.cartItem.quantity}">
+                <button>REMOVE</button>
+            </span>`
+            cart_items.appendChild(cart_item)
+        })
+
+    })
+    .catch(err=>console.log(err));
+
+}
+
 function ecommContainerHandler(e){
     //if add to cart btn clicked
     if (e.target.className=='shop-item-button'){
@@ -40,8 +73,14 @@ function ecommContainerHandler(e){
         const img_src = document.querySelector(`#${id} img`).src;
         const price = e.target.parentNode.firstElementChild.firstElementChild.innerText;
         let total_cart_price = document.querySelector('#total-value').innerText;
-        if (document.querySelector(`#in-cart-${id}`)){
+        console.log(id.split('-')[1]);
+        axiosObj.post('/cart',{productId:id.split('-')[1]})
+        .then(res=>console.log(res))
+        .catch(err=>console.log(err));
+        console.log(id.split('-')[1]);
+        if (document.querySelector(`#in-cart-${id.split('-')[1]}`)){
             alert('This item is already added to the cart');
+            
             return
         }
         // navbar cart count increase
@@ -50,7 +89,7 @@ function ecommContainerHandler(e){
         //adding product to cart and updating the total price
         const cart_item = document.createElement('div');
         cart_item.classList.add('cart-row');
-        cart_item.setAttribute('id',`in-cart-${id}`);
+        cart_item.setAttribute('id',`in-cart-${id.split('-')[1]}`);
         total_cart_price = parseFloat(total_cart_price) + parseFloat(price)
         total_cart_price = total_cart_price.toFixed(2)
         document.querySelector('#total-value').innerText = `${total_cart_price}`;
