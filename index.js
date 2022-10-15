@@ -1,5 +1,6 @@
 const cart_items = document.querySelector('#cart .cart-items');
 const ecommContainer=document.getElementById('EcommerceContainer');
+const pagination=document.getElementById('pagination');
 //axios
 const axiosObj=axios.create({
     baseURL:'http://localhost:3000'
@@ -12,9 +13,41 @@ ecommContainer.addEventListener('click',ecommContainerHandler);
 function fetchProductsHandler(){
     axiosObj.get('/product')
     .then(res=>{
-        const productsUI=document.getElementById('music-content');
+        displayProducts(res.data.products);
+        displayPagination(res.data);
+
+    })
+    .catch(err=>console.log(err));
+}
+function displayPagination({hasPreviousPage,previousPage,hasNextPage,nextPage,currentPage,lastPage}){
+    pagination.innerHTML='';
+    if(hasPreviousPage){
+        pagination.innerHTML+=`<button class="btn" onClick="showPageProducts(${previousPage})">
+        ${previousPage} </button>`;
+    }
+    pagination.innerHTML+=`<button class="btn active" onClick="showPageProducts(${currentPage})">
+        ${currentPage}</button>`;
+    if(hasNextPage){
+        pagination.innerHTML+=`<button class="btn" onClick="showPageProducts(${nextPage})">
+        ${nextPage}</button>`;
+    }
+    if(lastPage!=currentPage && lastPage!=nextPage)
+        pagination.innerHTML+=`<button class="btn" onClick="showPageProducts(${lastPage})">
+        ${lastPage}</button>`;
+}
+function showPageProducts(page){
+    axiosObj.get(`/product?page=${page}`)
+    .then(res=>{
+        displayProducts(res.data.products);
+        displayPagination(res.data);
+
+    })
+    .catch(err=>console.log(err));
+}
+function displayProducts(products){
+    const productsUI=document.getElementById('music-content');
         let childUI='';
-        res.data.forEach((item)=>{
+        products.forEach((item)=>{
             childUI+=`<div id='product-${item.id}'>
                     <h3>${item.productName}</h3>
                     <div class="image-container">
@@ -27,9 +60,6 @@ function fetchProductsHandler(){
                 </div>`;
         })
         productsUI.innerHTML=childUI;
-
-    })
-    .catch(err=>console.log(err));
 }
 
 function fetchCartProductsHandler(){
