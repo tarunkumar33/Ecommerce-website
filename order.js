@@ -15,6 +15,11 @@ function fetchOrdersHandler(){
 }
 function displayOrders(orders){
     ordersSection.innerHTML='';
+    // console.log("hii",orders.length);
+    if(orders.length===0){
+        ordersSection.innerHTML='<h1>No Orders</h1>';
+        return;
+    }
     orders.forEach(order=>{
         ordersSection.innerHTML+=`<li><h1>Order id: ${order.id}</h1>`;
         order.products.forEach(product=>{
