@@ -95,6 +95,7 @@ function fetchCartProductsHandler(){
 }
 
 function ecommContainerHandler(e){
+
     //if add to cart btn clicked
     if (e.target.className=='shop-item-button'){
         //storing values
@@ -161,10 +162,16 @@ function ecommContainerHandler(e){
             alert('You have Nothing in Cart , Add some products to purchase !');
             return
         }
-        alert('Thanks for the purchase')
-        cart_items.innerHTML = ""
-        document.querySelector('.cart-number').innerText = 0
-        document.querySelector('#total-value').innerText = `0`;
+        axiosObj.get('/create-order')
+        .then(res=>{
+            console.log(res.data);
+            alert(`Order id ${res.data.id} Placed Successfully.Thanks for the purchase`);
+            cart_items.innerHTML = ""
+            document.querySelector('.cart-number').innerText = 0
+            document.querySelector('#total-value').innerText = `0`;
+        })
+        .catch(err=>console.log(err));
+        
     }
 
     //remove product
